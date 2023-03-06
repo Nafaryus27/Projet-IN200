@@ -1,8 +1,8 @@
 # Projet-IN200
 
-##Groupe de TD : S2LDDMPTD01
+## Groupe de TD : S2LDDMPTD01
 
-##Membres :
+## Membres :
 
 - Lucia GOBERNA MARTIN
 - Fernanda CARBAJAL BANAREZ 
@@ -10,6 +10,6 @@
 - Nathan GILLES--LORDET
 
 
-##_But :_ implémenter la Fourmi de Langton en python et avoir une interface graphique permettant de visualiser le comportement de cet automate.
+## But : implémenter la Fourmi de Langton en python et avoir une interface graphique permettant de visualiser le comportement de cet automate.
 
 
