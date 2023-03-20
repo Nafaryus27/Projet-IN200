@@ -18,4 +18,4 @@ Implémenter la Fourmi de Langton en python et avoir une interface graphique per
 - **GUI** : Mariama, Nathan
 
 - **Responsable Github** : Nathan
-- **Responsable de la qualité du code** : _à décider_
+- **Responsable de la qualité du code** : Fernanda et Lucia
