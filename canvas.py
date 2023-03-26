@@ -1,7 +1,7 @@
 
 
 import tkinter as tk
-#creation d'un dictionnaire pour stocker les rectangles numerotés et leur coordonnées
+
 
 def grille(Can,n,s): #definition d'une grille 
     
@@ -21,4 +21,4 @@ def grille(Can,n,s): #definition d'une grille
 def changer_couleur(Can,h,x,y,couleur):
     Can.itemconfigure(x*h+y+1,fill = couleur)   #Can.itemconfigure
     
-changer_couleur(Can,5,8,"red")
+
