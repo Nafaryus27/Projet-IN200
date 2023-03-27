@@ -4,7 +4,7 @@ def iterate_ant(world :list, rules :dict, x :int, y :int, dir_id :int, reverse :
      a partir de regles fournies et de la position de la fourmi. 
 
      param list world: grille
-     param dict rules: regles 
+     param dict rules: regles (ex: {"white" :("R", "black"), "black": ("L", "white")})
      param int x: coordonnée abcisses fourmi
      param int y: coordonnée ordonnées fourmi
      param int dir_id: direction fourmi 
