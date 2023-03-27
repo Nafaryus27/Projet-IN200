@@ -1,38 +1,35 @@
-def bouger(pos, dir, items,n): #position et direction (cardinaux)
-    y, x = pos  #position par rapport a ses coordonnées (lignes, colonnes)
+def iterate_ant(world :list, rules :dict, x :int, y :int, dir_id :int, reverse :bool = False):
+    """
+    Permet de calculer l'iteration suivante de la fourmi de Langton
+     a partir de regles fournies et de la position de la fourmi. 
 
-    if items[y][x] == 0: #si la couleur de la case est claire
-        if dir == "N":
-            x += 1
-            ndir = "E" #est
-        elif dir == "S":
-            x -= 1
-            ndir="W" #ouest
-        elif dir == "E":
-            y += 1
-            ndir= "S" #sud #une ligne en dessous et la même colonne
-        elif dir == "W":
-            y -= 1
-            ndir= "N" #nord
-        items[y][x] = 1
-    else:  #case sombre
-        if dir == "S":  
-            x += 1
-            ndir= "E"  
-        elif dir == "N":
-            x -= 1
-            ndir= "W"
-        elif dir == "W":
-            y += 1
-            ndir= "S" 
-        elif dir == "E":
-            y -= 1
-            ndir= "N"
-        items[y][x] = 0
-    y %= n
-    x %= n
+     param list world: grille
+     param dict rules: regles 
+     param int x: coordonnée abcisses fourmi
+     param int y: coordonnée ordonnées fourmi
+     param int dir_id: direction fourmi 
+    """
+    direction = "NESW"
+    rotation = {"R":1, "L":-1}
+    M = {"N":(0,-1),"S":(0,1), "E":(1,0), "W":(-1,0)}
+    cell = world[y][x] 
 
-    return x,y,ndir #r est un couple (npos (nouvelle position couple ligne x colonne), ndir (nouvelle direction (donc parmi "N", "S", "E" et "W"))
+    r, new_color = rules[cell]
+    dir_id = (dir_id + rotation[r]) % 4
+
+    world[y][x]= new_color
+
+    nc = M[direction[dir_id]]
+
+    x += nc[0] 
+    y += nc[1]
 
 
-#Par exemple, si y=42, x=81 , dir="W" et la case (y, x) est noire alors la fourmi se déplace à sa gauche (donc vers la bas), donc sa nouvelle position est (42, 82) et sa nouvelle direction est "S".
+    x %= len(world[0])
+    y %= len(world)
+
+    return (dir_id, x, y)
+
+
+
+
