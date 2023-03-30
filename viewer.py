@@ -1,19 +1,18 @@
 import tkinter as tk
 
 class Viewer(tk.Canvas):
-    def __init__(self, master, cs):
+    def __init__(self, master, height:int, width:int, cs:int):
         """
         Initialisation du canvas sur lequel la fourmie évolue
 
-        avec :
-        self.grid_w: largeur de la grille (en nombre de cases)
-        self.grid_h: hauteur de la grille (en nombre de cases)
-        self.cell_size: taille d'une case en pixelsw
-
         :param master: widget parent du canvas
-        :param cs: taille en pixels des cases de la grille
+        :param int width: largeur de canvas (en pixels)
+        :param int height: hauteur du canvas (en pixels)
+        :param int cs: taille des cases de la grille (en pixels)
+
         """
-        tk.Canvas.__init__(self, master, height=940, width=1920)
+
+        tk.Canvas.__init__(self, master, width=width+1, height=height+1)
 
         self.cell_size = cs
         self.grid_h = int(self['height']) // self.cell_size
@@ -29,12 +28,12 @@ class Viewer(tk.Canvas):
         for i in range(self.grid_w): 
             for j in range(self.grid_h):
                 x = (i + 1) * self.cell_size
-                y = (j + 1) * self.cell_size            
-                self.create_rectangle(i * self.cell_size, j * self.cell_size, x, y, outline="grey")
+                y = (j + 1) * self.cell_size          
+                self.create_rectangle(i * self.cell_size+1, j * self.cell_size+1, x+1, y+1, outline="grey")
         return
 
             
-    def set_color(self,x:int,y:int,couleur:str):
+    def set_color(self, x:int, y:int, couleur:str):
         """
         permet de modifier la couleur de la case aux coordonées (x,y) dans la grille
                 
