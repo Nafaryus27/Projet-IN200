@@ -11,16 +11,16 @@ class Ant:
         :param str default_color: la couleur par default de la grille
         """
 
-        self.x=x
-        self.y=y
-        self.direction=direction
+        self.x = x
+        self.y = y
+        self.direction = direction
         self.moves = [(0,-1),(1,0),(0,1),(-1,0)]
         
-        self.rules=rules
-        self.inverted_rules={value[1]:(-value[0],key) for key, value in self.rules.items()}
+        self.rules = rules
+        self.inverted_rules = {value[1]:(-value[0],key) for key, value in self.rules.items()}
         
-        self.world_size=world_size
-        self.world= [default_color for i in range(self.world_size)]
+        self.world_size = world_size
+        self.world = [default_color for i in range(self.world_size)]
 
 
     def iterate(self):
@@ -32,9 +32,9 @@ class Ant:
         cell = self.world[self.y][self.x] 
 
         rotation, new_color = self.rules[cell]
-        self.direction= (self.direction + rotation) % 4
+        self.direction = (self.direction + rotation) % 4
 
-        self.world[self.y][self.x]= new_color
+        self.world[self.y][self.x] = new_color
 
         new_coordinates = self.moves[self.direction]
 
@@ -67,9 +67,9 @@ class Ant:
         cell = self.world[self.y][self.x] 
 
         rotation, new_color = self.inverted_rules[cell]
-        self.direction= (self.direction + rotation) % 4
+        self.direction = (self.direction + rotation) % 4
 
-        self.world[self.x,self.y]=new_color
+        self.world[self.x,self.y] = new_color
 
         return (self.x, self.y, new_color)
 
