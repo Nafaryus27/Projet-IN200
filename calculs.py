@@ -20,7 +20,7 @@ class Ant:
         self.inverted_rules = {value[1]:(-value[0],key) for key, value in self.rules.items()}
         
         self.world_size = world_size
-        self.world = [default_color for i in range(self.world_size)]
+        self.world = [[default_color for i in range(self.world_size)] for j in range(self.world_size)]
 
 
     def iterate(self):
@@ -69,7 +69,7 @@ class Ant:
         rotation, new_color = self.inverted_rules[cell]
         self.direction = (self.direction + rotation) % 4
 
-        self.world[self.x,self.y] = new_color
+        self.world[self.y][self.x] = new_color
 
         return (self.x, self.y, new_color)
 
