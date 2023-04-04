@@ -1,6 +1,6 @@
-import langton_gui as lgui
-
+import langton
+        
 if __name__ == "__main__":
 
-    App = lgui.LangtonsAntApp()
-    App.mainloop()
+    App = langton.Langton()
+    App.run()

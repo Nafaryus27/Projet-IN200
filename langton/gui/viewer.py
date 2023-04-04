@@ -9,10 +9,9 @@ class Viewer(tk.Canvas):
         :param int width: largeur de canvas (en pixels)
         :param int height: hauteur du canvas (en pixels)
         :param int cs: taille des cases de la grille (en pixels)
-
         """
-
-        tk.Canvas.__init__(self, master, width=width+1, height=height+1)
+        
+        tk.Canvas.__init__(self, master, width=width + 1, height=height + 1)
 
         self.cell_size = cs
         self.grid_h = int(self['height']) // self.cell_size
@@ -29,7 +28,7 @@ class Viewer(tk.Canvas):
             for j in range(self.grid_h):
                 x = (i + 1) * self.cell_size
                 y = (j + 1) * self.cell_size          
-                self.create_rectangle(i * self.cell_size+1, j * self.cell_size+1, x+1, y+1, outline="grey")
+                self.create_rectangle(i * self.cell_size + 1, j * self.cell_size + 1, x + 1, y + 1, outline="grey")
         return
 
             
