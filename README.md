@@ -9,11 +9,13 @@
 - Mariama
 - Nathan
 
-## Objectif : 
+## Objectif :
 
-Implémenter la Fourmi de Langton en python et avoir une interface graphique permettant de visualiser le comportement de cet automate.
+Implémenter la Fourmi de Langton en python et avoir une interface graphique permettant de visualiser le comportement de
+cet automate.
 
 ## Organisation :
+
 - **Simulation** : Lucia, Fernanda
 - **GUI** : Mariama, Nathan
 
