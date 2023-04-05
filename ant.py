@@ -26,7 +26,7 @@ class Ant:
     def iterate(self):
         """
         Permet de calculer l'iteration suivante de la fourmi de Langton
-        a partir de regles fournies et de la position de la fourmi. 
+        a partir de regles fournies et de la position de la fourmi.
         """
         
         cell = self.world[self.y][self.x] 
@@ -52,7 +52,7 @@ class Ant:
     def iterate_previous(self):
         """
         Permet de calculer l'iteration précédante de la fourmi de Langton
-        a partir de regles fournies et de la position de la fourmi. 
+        a partir de regles fournies et de la position de la fourmi.
         """
         
         new_coordinates = self.moves[self.direction]
