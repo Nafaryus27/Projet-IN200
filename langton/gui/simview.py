@@ -4,19 +4,23 @@ from .viewer import *
 from .utils import ToolBar
 
 class SimulationViewCTRL:
-    def __init__(self, master, model):
+    def __init__(self, master):
         
         self.view = SimulationView(master, self)
+
+    def set_model(self, model):
         self.model = model
 
     def show(self):
         self.view.tkraise()
         
     def step(self):
-        pass
-
+        x,y,c = self.model.iterate()
+        self.view.set_color(x,y,c)
+    
     def previous(self):
-        pass
+        x,y,c = self.model.iterate_previous()
+        self.view.set_color(x,y,c)
 
     def play(self):
         pass
@@ -25,7 +29,8 @@ class SimulationViewCTRL:
         pass
 
     def reset(self):
-        pass
+        self.model.reset()
+        self.view.reset()
 
     
 class SimulationView(ttk.Frame):
@@ -41,7 +46,13 @@ class SimulationView(ttk.Frame):
         tool_bar = ToolBar(self)
         tool_bar.grid(row=0, column=0, sticky='ew')
 
-        self.viewer = Viewer(self, 900, 900, 15)
+        self.viewer = Viewer(self, 900, 900, 15, "white")
         self.viewer.grid(row=1, column=1, sticky='news')
 
         self.grid(row=0, column=0, sticky="news")
+
+    def set_color(self, x:int, y:int, color:str):
+        self.viewer.set_color(x,y,color)
+
+    def reset(self):
+        self.viewer.reset()

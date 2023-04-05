@@ -2,12 +2,12 @@ import tkinter as tk
 from tkinter import ttk
 
 class LabeledEntry(ttk.Frame):
-    def __init__(self, master, text:str, default_value:str):
+    def __init__(self, master, var_type, text:str, default_value:str):
         ttk.Frame.__init__(self, master)
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
-        self.value = tk.StringVar(self, default_value)
+        self.value = var_type(self, default_value)
 
         self.init_widgets(text, default_value)
         
@@ -20,6 +20,14 @@ class LabeledEntry(ttk.Frame):
         
         self.get = entry.get
 
+class LabeledEntryStr(LabeledEntry):
+    def __init__(self, master, text:str, default_value:str):
+        LabeledEntry.__init__(self, master, tk.StringVar, text, default_value)
+
+class LabeledEntryInt(LabeledEntry):
+    def __init__(self, master, text:str, default_value:str):
+        LabeledEntry.__init__(self, master, tk.IntVar, text, default_value)
+        
                       
 class ToolBar(ttk.Frame):
     def __init__(self, master):
