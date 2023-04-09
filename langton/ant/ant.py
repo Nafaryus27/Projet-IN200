@@ -1,3 +1,5 @@
+import json
+
 class Ant:
     def __init__(self, x:int, y:int, direction:int, rules:dict, world_size:int, default_color:str):
         """
@@ -73,3 +75,24 @@ class Ant:
 
         return (self.x, self.y, new_color)
 
+
+
+
+    def save_rules(self):
+        with open("fichier_sauvegarde.json","a+") as file:
+            json.dump(self.rules,file )       #json.dump pour convertir le dictrionnaire ruless en une chaison json et l'ajouter dans file
+            file.close()
+        return
+
+    def save_positions(self):
+        positions={"x":self.x, "y":self.y,"dir":self.direction}
+        with open("fichier_sauvegarde.json","a+") as file:
+            json.dump(positions,file)
+            file.close()
+        return
+
+    def save_world(self):
+        with open("fichier_sauvegarde_world.txt","a+") as file:
+            for l in self.world:
+                file.write(" ".join(l) + "\n")
+            
