@@ -4,28 +4,78 @@ from .viewer import *
 from .utils import ToolBar
 
 class SimulationViewCTRL:
-    def __init__(self, master, model):
-        
+    def __init__(self, master, root):
+        self.root = root
         self.view = SimulationView(master, self)
+
+        self.iteration = 0
+        self.is_looping = False
+        self.speed = 1
+
+        
+    def set_model(self, model):
         self.model = model
 
-    def show(self):
+        
+    def show(self, viewer_size, grid_size, default_color):
+        self.is_looping = False
+        self.model.reset()
+        self.view.init_viewer(viewer_size, grid_size, default_color)
         self.view.tkraise()
+
         
     def step(self):
-        pass
+        x,y,c = self.model.iterate()
+        self.view.set_color(x,y,c)
 
+        self.iteration += 1
+        # self.iteration.config(text=str(self.i))
+        return True
+
+    
     def previous(self):
-        pass
+        if self.iteration > 0:
+            x,y,c = self.model.iterate_previous()
+            self.view.set_color(x,y,c)
+            self.iteration -= 1
+            return True
+        return False
 
-    def play(self):
-        pass
+    
+    def loop(self):
+        if self.is_looping and self.looped_func():
+            self.root.after(self.speed, self.loop)
+        else:
+            self.is_looping = False
+            
+        
+    def play_forward(self):
+        self.looped_func = self.step
+        if not self.is_looping:
+            self.is_looping = True
+            self.loop()
+        
+        
+    def play_reverse(self):
+        self.looped_func = self.previous
+        if not self.is_looping and self.iteration:
+            self.is_looping = True
+            self.loop()
 
+        
     def pause(self):
-        pass
+        self.is_looping = False
 
+        
     def reset(self):
-        pass
+        self.is_looping = False
+        self.iteration = 0
+        self.model.reset()
+        self.view.reset()
+
+        
+    def set_speed(self, s):
+        self.speed = s
 
     
 class SimulationView(ttk.Frame):
@@ -38,10 +88,18 @@ class SimulationView(ttk.Frame):
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(2, weight=1)
         
-        tool_bar = ToolBar(self)
-        tool_bar.grid(row=0, column=0, sticky='ew')
+        self.tool_bar = ToolBar(self, controller)
+        self.tool_bar.grid(row=0, column=1, sticky='ew')
+        
+        self.grid(row=0, column=0, sticky="news")
 
-        self.viewer = Viewer(self, 900, 900, 15)
+    def init_viewer(self, pixel_size:int, grid_size:int, default_color):
+        self.viewer = Viewer(self, pixel_size, pixel_size, grid_size, default_color)
         self.viewer.grid(row=1, column=1, sticky='news')
 
-        self.grid(row=0, column=0, sticky="news")
+    
+    def set_color(self, x:int, y:int, color:str):
+        self.viewer.set_color(x,y,color)
+
+    def reset(self):
+        self.viewer.reset()

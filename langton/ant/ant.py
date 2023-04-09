@@ -12,7 +12,9 @@ class Ant:
         :param int world_size: taille de la grille
         :param str default_color: la couleur par default de la grille
         """
-
+        self.start_pos = (x,y, direction)
+        self.default_color = default_color
+        
         self.x = x
         self.y = y
         self.direction = direction
@@ -23,7 +25,7 @@ class Ant:
         self.inverted_rules = {value[1]:(-value[0],key) for key, value in self.rules.items()}
         
         self.world_size = world_size
-        self.world = [[default_color for i in range(self.world_size)] for j in range(self.world_size)]
+        self.world = [[self.default_color for i in range(self.world_size)] for j in range(self.world_size)]
 
 
     def iterate(self):
@@ -40,7 +42,7 @@ class Ant:
         self.world[self.y][self.x] = new_color
 
         new_coordinates = self.moves[self.direction]
-
+        oldx, oldy = self.x, self.y
         self.x += new_coordinates[0] 
         self.y += new_coordinates[1]
 
@@ -48,7 +50,7 @@ class Ant:
         self.x %= self.world_size
         self.y %= self.world_size
 
-        return (self.x, self.y, new_color)
+        return (oldx, oldy, new_color)
 
 
     def iterate_previous(self):
@@ -74,6 +76,11 @@ class Ant:
         self.world[self.y][self.x] = new_color
 
         return (self.x, self.y, new_color)
+
+
+    def reset(self):
+        self.x, self.y, self.direction= self.start_pos
+        self.world = [[self.default_color for i in range(self.world_size)] for j in range(self.world_size)]
 
     
     def save_data(self,save_name):
@@ -105,9 +112,3 @@ class Ant:
         self.update_save_list(save_name)
         self.save_data(save_name)
         self.save_world(save_name)
-
-    
-  
-
-    
-
