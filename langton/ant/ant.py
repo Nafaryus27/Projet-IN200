@@ -50,7 +50,6 @@ class Ant:
         return (self.x, self.y, new_color)
 
 
-
     def iterate_previous(self):
         """
         Permet de calculer l'iteration précédante de la fourmi de Langton
@@ -76,13 +75,12 @@ class Ant:
         return (self.x, self.y, new_color)
 
 
-
-
     def save_rules(self):
         with open("fichier_sauvegarde.json","a+") as file:
-            json.dump(self.rules,file )       #json.dump pour convertir le dictrionnaire ruless en une chaison json et l'ajouter dans file
+            json.dump(self.rules,file )
             file.close()
         return
+
 
     def save_positions(self):
         positions={"x":self.x, "y":self.y,"dir":self.direction}
@@ -90,6 +88,7 @@ class Ant:
             json.dump(positions,file)
             file.close()
         return
+
 
     def save_world(self):
         with open("fichier_sauvegarde_world.txt","a+") as file:
