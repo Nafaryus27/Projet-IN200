@@ -16,6 +16,7 @@ class Ant:
         self.x = x
         self.y = y
         self.direction = direction
+        self.iteration = 0
         self.moves = [(0,-1),(1,0),(0,1),(-1,0)]
         
         self.rules = rules
@@ -30,7 +31,7 @@ class Ant:
         Permet de calculer l'iteration suivante de la fourmi de Langton
         a partir de regles fournies et de la position de la fourmi.
         """
-        
+        self.iteration += 1
         cell = self.world[self.y][self.x] 
 
         rotation, new_color = self.rules[cell]
@@ -55,7 +56,7 @@ class Ant:
         Permet de calculer l'iteration précédante de la fourmi de Langton
         a partir de regles fournies et de la position de la fourmi.
         """
-        
+        self.iteration -= 1
         new_coordinates = self.moves[self.direction]
 
         self.x -= new_coordinates[0] 
@@ -74,24 +75,39 @@ class Ant:
 
         return (self.x, self.y, new_color)
 
-
-    def save_rules(self):
-        with open("fichier_sauvegarde.json","a+") as file:
-            json.dump(self.rules,file )
+    
+    def save_data(self,save_name):
+        data={"rules": self.rules,"x":self.x, "y":self.y,"direction":self.direction, "iteration":self.iteration}
+        with open(save_name + ".json", "w") as file:
+            json.dump(data, file)
             file.close()
-        return
 
 
-    def save_positions(self):
-        positions={"x":self.x, "y":self.y,"dir":self.direction}
-        with open("fichier_sauvegarde.json","a+") as file:
-            json.dump(positions,file)
-            file.close()
-        return
-
-
-    def save_world(self):
-        with open("fichier_sauvegarde_world.txt","a+") as file:
+    def save_world(self, save_name):
+        with open(save_name + "_world.txt","w") as file:
             for l in self.world:
                 file.write(" ".join(l) + "\n")
-            
+            file.close()
+    
+    
+    def update_save_list(self, save_name):
+        with open("save_list.txt","a+") as file:
+            exist=False
+            for line in file.readlines():
+                if save_name in line:
+                    exist=True
+            if not exist:
+                file.write(save_name + "\n")
+            file.close()
+
+    
+    def save(self, save_name):
+        self.update_save_list(save_name)
+        self.save_data(save_name)
+        self.save_world(save_name)
+
+    
+  
+
+    
+
