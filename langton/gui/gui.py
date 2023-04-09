@@ -28,14 +28,14 @@ class LangtonGUI(tk.Tk):
         main_frame.grid_columnconfigure(0, weight=1)
         main_frame.grid_rowconfigure(0, weight=1)
 
-        self.simulation_ctrl = SimulationViewCTRL(main_frame)
+        self.simulation_ctrl = SimulationViewCTRL(main_frame, self)
         self.start_page_ctrl = StartPageCTRL(main_frame, self.app, self.simulation_ctrl)
         
         self.menu_bar = MenuBarCTRL(self, self.start_page_ctrl, self.simulation_ctrl)
 
-    def set_model(self, ant):
-        self.model = ant
-        self.simulation_ctrl.set_model(ant)
-        self.start_page.model(ant)
+    def set_model(self, model):
+        self.model = model
+        self.simulation_ctrl.set_model(model)
+        self.start_page_ctrl.set_model(model)
         
 

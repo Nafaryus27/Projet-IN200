@@ -10,7 +10,7 @@ class Ant:
         :param int world_size: taille de la grille
         :param str default_color: la couleur par default de la grille
         """
-        self.start_pos = (x,y)
+        self.start_pos = (x,y, direction)
         self.default_color = default_color
         
         self.x = x
@@ -76,5 +76,5 @@ class Ant:
         return (self.x, self.y, new_color)
 
     def reset(self):
-        self.x, self.y = self.start_pos
+        self.x, self.y, self.direction= self.start_pos
         self.world = [[self.default_color for i in range(self.world_size)] for j in range(self.world_size)]

@@ -2,16 +2,19 @@ import tkinter as tk
 from tkinter import ttk
 
 class MenuBarCTRL:
-    def __init__(self, master, model, start_page_ctrl, simulation_ctrl):
+    def __init__(self, master, start_page_ctrl, simulation_ctrl):
 
         self.view = MenuBar(master, self)
         self.simulation = simulation_ctrl
         self.start_page = start_page_ctrl
-        self.model = model
 
+    def set_model(self, model):
+        self.model = model
+        
     def new_sim(self):
         self.simulation.reset()
         self.start_page.show()
+        
 
     def load_file(self):
         pass
