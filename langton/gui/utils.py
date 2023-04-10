@@ -15,10 +15,11 @@ class LabeledEntry(ttk.Frame):
         label = ttk.Label(self, text=text)
         label.grid(row=0, column=0, sticky='e')
         
-        entry = ttk.Entry(self, textvariable=self.value)
-        entry.grid(row=0, column=1)
+        self.entry = ttk.Entry(self, textvariable=self.value)
+        self.entry.grid(row=0, column=1)
         
-        self.get = entry.get
+    def get(self):
+        return self.entry.get()
 
 class LabeledSpinbox(ttk.Frame):
     def __init__(self, master, text:str, default_value:int, variable_name:str="", callback=None):
