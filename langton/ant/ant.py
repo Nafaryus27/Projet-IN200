@@ -30,8 +30,9 @@ class Ant:
 
     def iterate(self):
         """
-        Permet de calculer l'iteration suivante de la fourmi de Langton
-        a partir de regles fournies et de la position de la fourmi.
+        Permet de calculer l'iteration suivante de la fourmi de
+        Langton a partir de regles fournies et de la position de la
+        fourmi.
         """
         self.iteration += 1
         cell = self.world[self.y][self.x] 
@@ -55,8 +56,9 @@ class Ant:
 
     def iterate_previous(self):
         """
-        Permet de calculer l'iteration précédante de la fourmi de Langton
-        a partir de regles fournies et de la position de la fourmi.
+        Permet de calculer l'iteration précédante de la fourmi de
+        Langton a partir de regles fournies et de la position de la
+        fourmi.
         """
         self.iteration -= 1
         new_coordinates = self.moves[self.direction]
@@ -84,20 +86,46 @@ class Ant:
 
     
     def save_data(self,save_name):
-        data={"rules": self.rules,"x":self.x, "y":self.y,"direction":self.direction, "iteration":self.iteration}
+        """
+        Permet de sauvegarder les information de la fourmi dans un
+        fichier json (position, orientation, les règles, l'itération,
+        la grille)
+        """
+        data={"rules": self.rules,
+              "x": self.x,
+              "y": self.y,
+              "direction": self.direction,
+              "iteration": self.iteration,
+              "world": self.world}
+        
         with open(save_name + ".json", "w") as file:
             json.dump(data, file)
             file.close()
 
 
-    def save_world(self, save_name):
-        with open(save_name + "_world.txt","w") as file:
-            for l in self.world:
-                file.write(" ".join(l) + "\n")
-            file.close()
+    # def save_world(self, save_name):
+    #     """
+    #     Permet de sauvegarder la grille sur vit la fourmi dans un
+    #     fichier .txt
+    #     chaque ligne du fichier représente une ligne du tableau et
+    #     est sous la forme :
+
+    #          couleur couleur ... couleur couleur 
+
+    #     avec "couleur" étant la couleur de la case correspondante
+    #     les couleurs sont séparées par des espaces.
+    #     """
+    #     with open(save_name + "_world.txt","w") as file:
+    #         for l in self.world:
+    #             file.write(" ".join(l) + "\n")
+    #         file.close()
     
     
     def update_save_list(self, save_name):
+        """
+        Permet de garder la liste de toutes les sauvegardes créées
+        chaque sauvegardes
+        """            
         with open("save_list.txt","a+") as file:
             exist=False
             for line in file.readlines():
@@ -107,8 +135,11 @@ class Ant:
                 file.write(save_name + "\n")
             file.close()
 
-    
+
     def save(self, save_name):
+        """
+        Permet de sauvegarder l'instance de la fourmi en cours
+        """
         self.update_save_list(save_name)
         self.save_data(save_name)
-        self.save_world(save_name)
+
