@@ -22,8 +22,9 @@ class LabeledEntry(ttk.Frame):
         return self.entry.get()
 
 class LabeledSpinbox(ttk.Frame):
-    def __init__(self, master, text:str, default_value:int, variable_name:str="", callback=None):
+    def __init__(self, master, text:str, default_value:int, variable_name:str="", callback=None, width=20):
         ttk.Frame.__init__(self, master)
+        self.width = width
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
@@ -36,7 +37,7 @@ class LabeledSpinbox(ttk.Frame):
         label = ttk.Label(self, text=text)
         label.grid(row=0, column=0, sticky='e')
         
-        self.entry = ttk.Spinbox(self, textvariable=self.value, from_=1, to=1000)
+        self.entry = ttk.Spinbox(self, textvariable=self.value, from_=1, to=1000, width=self.width)
         self.entry.grid(row=0, column=1)
         
     def get(self):
@@ -56,9 +57,11 @@ class ToolBar(ttk.Frame):
         button_play = ttk.Button(cont, text="Play", command=self.controller.play_forward)
         button_reverse = ttk.Button(cont, text="Reverse", command=self.controller.play_reverse)
         button_pause = ttk.Button(cont, text="Pause", command=self.controller.pause)
-        self.speed_entry = LabeledSpinbox(cont, text="Speed (in ms)", default_value=1, variable_name="speed", callback=self.spinbox_callback)
+        self.speed_entry = LabeledSpinbox(cont, text="Speed (in ms)", default_value=1, variable_name="speed", callback=self.spinbox_callback, width=4)
         button_reset = ttk.Button(cont, text="Reset", command=self.controller.reset)
-
+        self.it_var = tk.StringVar(self, "Iteration : 0")
+        iteration_label = ttk.Label(cont, textvariable=self.it_var)
+        
         button_next.grid(row=0,column=0)
         button_previous.grid(row=0, column=1)
         button_play.grid(row=0, column=2)
@@ -66,8 +69,12 @@ class ToolBar(ttk.Frame):
         button_pause.grid(row=0, column=4)
         button_reset.grid(row=0, column=5)
         self.speed_entry.grid(row=0,column=6)
+        iteration_label.grid(row=0, column=7)
         cont.grid(row=0, column=1, sticky='news')
         
     def spinbox_callback(self, *args):
         if self.speed_entry.get():
             self.controller.set_speed(self.speed_entry.get())
+
+    def set_iteration(self, val):
+        self.it_var.set("Iteration : " + str(val))

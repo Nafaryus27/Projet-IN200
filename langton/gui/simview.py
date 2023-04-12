@@ -29,7 +29,7 @@ class SimulationViewCTRL:
         self.view.set_color(x,y,c)
 
         self.iteration += 1
-        # self.iteration.config(text=str(self.i))
+        self.view.set_iteration(self.iteration)
         return True
 
     
@@ -38,6 +38,7 @@ class SimulationViewCTRL:
             x,y,c = self.model.iterate_previous()
             self.view.set_color(x,y,c)
             self.iteration -= 1
+            self.view.set_iteration(self.iteration)
             return True
         return False
 
@@ -95,7 +96,7 @@ class SimulationView(ttk.Frame):
 
     def init_viewer(self, pixel_size:int, grid_size:int, default_color):
         self.viewer = Viewer(self, pixel_size, pixel_size, grid_size, default_color)
-        self.viewer.grid(row=1, column=1, sticky='news')
+        self.viewer.grid(row=1, column=1, sticky='ns')
 
     
     def set_color(self, x:int, y:int, color:str):
@@ -103,3 +104,6 @@ class SimulationView(ttk.Frame):
 
     def reset(self):
         self.viewer.reset()
+
+    def set_iteration(self, val):
+        self.tool_bar.set_iteration(val)
