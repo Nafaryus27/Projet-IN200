@@ -19,6 +19,8 @@ class SimulationViewCTRL:
         
     def show(self, viewer_size, grid_size, default_color):
         self.is_looping = False
+        self.iteration = 0
+        self.view.set_iteration(self.iteration)
         self.model.reset()
         self.view.init_viewer(viewer_size, grid_size, default_color)
         self.view.tkraise()
@@ -71,6 +73,7 @@ class SimulationViewCTRL:
     def reset(self):
         self.is_looping = False
         self.iteration = 0
+        self.view.set_iteration(self.iteration)
         self.model.reset()
         self.view.reset()
 
