@@ -1,15 +1,13 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, filedialog
 
 class MenuBarCTRL:
-    def __init__(self, master, start_page_ctrl, simulation_ctrl):
-
+    def __init__(self, master, ant_ctrl, start_page_ctrl, simulation_ctrl):
         self.view = MenuBar(master, self)
         self.simulation = simulation_ctrl
         self.start_page = start_page_ctrl
-
-    def set_model(self, model):
-        self.model = model
+        self.ant_ctrl = ant_ctrl
+        
         
     def new_sim(self):
         self.simulation.reset()
@@ -17,32 +15,42 @@ class MenuBarCTRL:
         
 
     def load_file(self):
-        pass
+        file_path = filedialog.askopenfilename(initialdir = "./Saves", title = "Load instance", filetypes = (("Ant File", "*.ant*"), ("all files","*.*")))
 
+        self.ant_ctrl.load(file_path)
+        
     def save_file(self):
-        pass
+        file_path = filedialog.asksaveasfilename(initialdir = "./Saves", title = "Save instance", filetypes = (("Ant File", "*.ant*"), ("all files","*.*")))
 
-    def settings(self):
-        pass
+        if file_path[-4::] != ".ant":
+            file_path += ".ant"
+        self.ant_ctrl.save(file_path)
 
+        
     def step(self):
         self.simulation.step()
 
+        
     def previous(self):
         self.simulation.previous()
 
+        
     def play(self):
         self.simulation.play()
 
+        
     def pause(self):
         self.simulation.pause()
 
+        
     def reset(self):
         self.simulation.reset()
 
+        
     def documentation(self):
         pass
 
+    
     def about(self):
         pass
 
@@ -54,6 +62,7 @@ class MenuBar(tk.Menu):
         self.controller = controller
         self.init_widgets()
         master['menu'] = self
+
         
     def init_widgets(self):
         menu_file = tk.Menu(self)
@@ -61,7 +70,6 @@ class MenuBar(tk.Menu):
         menu_file.add_command(label="Load", command=self.controller.load_file)
         menu_file.add_command(label="Save", command=self.controller.save_file)
         menu_file.add_separator()
-        menu_file.add_command(label="Settings", command=self.controller.settings)
         menu_file.add_command(label="Quit", command=self.master.destroy)
 
         self.add_cascade(menu=menu_file, label="File")

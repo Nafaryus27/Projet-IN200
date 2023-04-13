@@ -17,10 +17,8 @@ class SimulationViewCTRL:
         self.model = model
 
         
-    def show(self, viewer_size, grid_size, default_color):
-        self.is_looping = False
-        self.model.reset()
-        self.view.init_viewer(viewer_size, grid_size, default_color)
+    def show(self, grid_size, default_color):
+        self.view.init_viewer(grid_size, default_color)
         self.view.tkraise()
 
         
@@ -29,7 +27,6 @@ class SimulationViewCTRL:
         self.view.set_color(x,y,c)
 
         self.iteration += 1
-        # self.iteration.config(text=str(self.i))
         return True
 
     
@@ -66,17 +63,25 @@ class SimulationViewCTRL:
     def pause(self):
         self.is_looping = False
 
+
+    def set_speed(self, s):
+        self.speed = s
+
         
     def reset(self):
         self.is_looping = False
         self.iteration = 0
         self.model.reset()
-        self.view.reset()
+        self.view.reset()        
+        return
 
+    
+    def load(self, array):
         
-    def set_speed(self, s):
-        self.speed = s
-
+        self.view.init_viewer(self.model.world_size, self.model.default_color)
+        self.view.viewer.load_from_array(array)
+        self.view.tkraise()
+        
     
 class SimulationView(ttk.Frame):
     def __init__(self, master, controller):
@@ -93,8 +98,8 @@ class SimulationView(ttk.Frame):
         
         self.grid(row=0, column=0, sticky="news")
 
-    def init_viewer(self, pixel_size:int, grid_size:int, default_color):
-        self.viewer = Viewer(self, pixel_size, pixel_size, grid_size, default_color)
+    def init_viewer(self, grid_size:int, default_color):
+        self.viewer = Viewer(self, grid_size, default_color)
         self.viewer.grid(row=1, column=1, sticky='news')
 
     

@@ -1,7 +1,5 @@
-import json
-
 class Ant:
-    def __init__(self, x:int, y:int, direction:int, rules:dict, world_size:int, default_color:str):
+    def __init__(self, x:int=0, y:int=0, direction:int=0, rules:dict={}, world_size:int=0, default_color:str=""):
         """
         Initialise une fourmi de Langton avec les parametres suivants:
         
@@ -19,8 +17,8 @@ class Ant:
         self.y = y
         self.direction = direction
         self.iteration = 0
-        self.moves = [(0,-1),(1,0),(0,1),(-1,0)]
         
+        self.moves = [(0,-1),(1,0),(0,1),(-1,0)]
         self.rules = rules
         self.inverted_rules = {value[1]:(-value[0],key) for key, value in self.rules.items()}
         
@@ -85,61 +83,35 @@ class Ant:
         self.world = [[self.default_color for i in range(self.world_size)] for j in range(self.world_size)]
 
     
-    def save_data(self,save_name):
+    def get_data(self):
         """
-        Permet de sauvegarder les information de la fourmi dans un
-        fichier json (position, orientation, les règles, l'itération,
-        la grille)
+        Renvoie les information de la fourmi sous la forme d'un
+        dictionnaire
         """
         data={"rules": self.rules,
+              "inverted_rules": self.inverted_rules,
               "x": self.x,
               "y": self.y,
               "direction": self.direction,
+              "start_pos": self.start_pos,
               "iteration": self.iteration,
+              "default_color": self.default_color,
+              "world_size": self.world_size,
               "world": self.world}
-        
-        with open(save_name + ".json", "w") as file:
-            json.dump(data, file)
-            file.close()
+        return data
 
-
-    # def save_world(self, save_name):
-    #     """
-    #     Permet de sauvegarder la grille sur vit la fourmi dans un
-    #     fichier .txt
-    #     chaque ligne du fichier représente une ligne du tableau et
-    #     est sous la forme :
-
-    #          couleur couleur ... couleur couleur 
-
-    #     avec "couleur" étant la couleur de la case correspondante
-    #     les couleurs sont séparées par des espaces.
-    #     """
-    #     with open(save_name + "_world.txt","w") as file:
-    #         for l in self.world:
-    #             file.write(" ".join(l) + "\n")
-    #         file.close()
-    
-    
-    def update_save_list(self, save_name):
+    def load_from_data(self, data:dict):
         """
-        Permet de garder la liste de toutes les sauvegardes créées
-        chaque sauvegardes
-        """            
-        with open("save_list.txt","a+") as file:
-            exist=False
-            for line in file.readlines():
-                if save_name in line:
-                    exist=True
-            if not exist:
-                file.write(save_name + "\n")
-            file.close()
-
-
-    def save(self, save_name):
+        Créée une fourmi à partir de data
         """
-        Permet de sauvegarder l'instance de la fourmi en cours
-        """
-        self.update_save_list(save_name)
-        self.save_data(save_name)
-
+        self.rules = data['rules']
+        self.inverted_rules = data['inverted_rules']
+        self.x = data['x']
+        self.y = data['y']
+        self.direction = data['direction']
+        self.start_pos = data['start_pos']
+        self.iteration = data['iteration']
+        self.default_color = data['default_color']
+        self.world_size = data['world_size']
+        self.world = data['world']
+        return(self)
