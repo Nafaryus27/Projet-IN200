@@ -87,6 +87,9 @@ class SimulationViewCTRL:
 
     
     def load(self, array):
+        self.is_looping = False
+        self.iteration = self.model.iteration
+        self.view.set_iteration(self.iteration)
         self.view.init_viewer(self.model.world_size, self.model.default_color)
         self.view.viewer.load_from_array(array)
         self.menu.enable_sim()

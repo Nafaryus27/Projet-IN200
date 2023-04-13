@@ -20,15 +20,17 @@ class MenuBarCTRL:
 
     def load_file(self):
         file_path = filedialog.askopenfilename(initialdir = "./Saves", title = "Load instance", filetypes = (("Ant File", "*.ant*"), ("all files","*.*")))
-        
-        self.ant_ctrl.load(file_path)
+        if file_path:
+            self.ant_ctrl.load(file_path)
+
         
     def save_file(self):
         file_path = filedialog.asksaveasfilename(initialdir = "./Saves", title = "Save instance", filetypes = (("Ant File", "*.ant*"), ("all files","*.*")))
 
-        if file_path[-4::] != ".ant":
-            file_path += ".ant"
-        self.ant_ctrl.save(file_path)
+        if file_path:
+            if file_path[-4::] != ".ant":
+                file_path += ".ant"
+            self.ant_ctrl.save(file_path)
 
 
     def disable_sim(self):

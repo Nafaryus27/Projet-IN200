@@ -60,7 +60,11 @@ class StartPageCTRL:
         file_path = filedialog.askopenfilename(initialdir = "./Saves", title = "Load instance", filetypes = (("Ant File", "*.ant*"), ("all files","*.*")))
         if file_path:
             self.ant_ctrl.load(file_path)
-            
+
+    
+    def set_model(self, model):
+        self.model = model
+
         
 class StartPage(ttk.Frame):
     def __init__(self, master, controller):
@@ -89,7 +93,6 @@ class StartPage(ttk.Frame):
         self.direction_entry = LabeledEntry(self.cont, "Direction", "Up")
         
         self.rule_entry = LabeledEntry(self.cont, text="Rule", default_value="RL")
-        
         self.launch_button = ttk.Button(self.cont, text="Launch", command=self.controller.launch_callback)
         self.load_button = ttk.Button(self.cont, text="Load", command=self.controller.load_file)
 
