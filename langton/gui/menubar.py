@@ -36,8 +36,12 @@ class MenuBarCTRL:
 
         
     def play(self):
-        self.simulation.play()
+        self.simulation.play_forward()
 
+
+    def reverse(self):
+        self.simulation.play_reverse()
+        
         
     def pause(self):
         self.simulation.pause()
@@ -79,6 +83,7 @@ class MenuBar(tk.Menu):
         menu_sim.add_command(label="Previous", command=self.controller.previous)
         menu_sim.add_separator()
         menu_sim.add_command(label="Play", command=self.controller.play)
+        menu_sim.add_command(label="Reverse", command=self.controller.reverse)
         menu_sim.add_command(label="Pause", command=self.controller.pause)
         menu_sim.add_separator()
         menu_sim.add_command(label="Reset", command=self.controller.reset)
