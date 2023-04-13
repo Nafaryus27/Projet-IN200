@@ -16,10 +16,17 @@ class SimulationViewCTRL:
     def set_model(self, model):
         self.model = model
 
+
+    def set_menu(self, menu):
+        self.menu = menu
+        
         
     def show(self, grid_size, default_color):
+        self.menu.enable_sim()
+        self.menu.enable_save()
         self.view.init_viewer(grid_size, default_color)
         self.view.tkraise()
+        
 
         
     def step(self):
@@ -80,9 +87,10 @@ class SimulationViewCTRL:
 
     
     def load(self, array):
-        
         self.view.init_viewer(self.model.world_size, self.model.default_color)
         self.view.viewer.load_from_array(array)
+        self.menu.enable_sim()
+        self.menu.enable_save()
         self.view.tkraise()
         
     

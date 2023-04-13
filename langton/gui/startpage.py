@@ -19,18 +19,15 @@ class StartPageCTRL:
         self.ant_ctrl = ant_ctrl
         self.simulation = simulation_ctrl
 
+
+    def set_model(self, model):
+        self.model = model
         
+            
     def show(self):
         self.view.tkraise()
 
-        
-    def launch_callback(self):
-        x,y,direction,world_size,color = self.get_settings()
-        rule = self.get_rule(color)
-        self.ant_ctrl.new_ant(x,y,direction,rule,world_size,color)
-        self.simulation.show(world_size, color)
-
-        
+            
     def get_rule(self, first_color):
         r  = self.view.rule_entry.get()
         rule = {}
@@ -47,24 +44,23 @@ class StartPageCTRL:
         return (rule)
 
     
-    def get_settings(self):
+    def launch_callback(self):
         x = int(self.view.x_entry.get())
         y = int(self.view.y_entry.get())
-        d = ["Up","Left", "Down", "Right"]
-        direction = d.index(self.view.direction_entry.get())
+        direction = ["Up","Left", "Down", "Right"].index(self.view.direction_entry.get())
         world_size = int(self.view.world_size_entry.get())
         color = self.view.base_color_entry.get()
-        return (x, y, direction, world_size, color)
+        rule = self.get_rule(color)
 
+        self.ant_ctrl.new_ant(x,y,direction,rule,world_size,color)
+        self.simulation.show(world_size, color)
     
+        
     def load_file(self):
         file_path = filedialog.askopenfilename(initialdir = "./Saves", title = "Load instance", filetypes = (("Ant File", "*.ant*"), ("all files","*.*")))
-        self.ant_ctrl.load(file_path)
-
-    
-    def set_model(self, model):
-        self.model = model
-
+        if file_path:
+            self.ant_ctrl.load(file_path)
+            
         
 class StartPage(ttk.Frame):
     def __init__(self, master, controller):
