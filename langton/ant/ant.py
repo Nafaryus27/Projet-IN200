@@ -114,4 +114,4 @@ class Ant:
         self.default_color = data['default_color']
         self.world_size = data['world_size']
         self.world = data['world']
-        return(self)
+
