@@ -115,3 +115,4 @@ class Ant:
         self.world_size = data['world_size']
         self.world = data['world']
         return(self)
+
