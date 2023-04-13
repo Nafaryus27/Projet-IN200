@@ -22,7 +22,6 @@ class LangtonGUI(tk.Tk):
         self.init_widgets()
 
     def init_widgets(self):
-    
         main_frame = ttk.Frame(self)
         main_frame.pack(side="top", fill="both", expand=True)
         main_frame.grid_columnconfigure(0, weight=1)
@@ -32,7 +31,9 @@ class LangtonGUI(tk.Tk):
         self.start_page_ctrl = StartPageCTRL(main_frame, self.app, self.simulation_ctrl)
         
         self.menu_bar = MenuBarCTRL(self, self.app, self.start_page_ctrl, self.simulation_ctrl)
+        self.simulation_ctrl.set_menu(self.menu_bar)
 
+        
     def set_model(self, model):
         self.model = model
         self.simulation_ctrl.set_model(model)

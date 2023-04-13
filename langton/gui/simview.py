@@ -16,10 +16,17 @@ class SimulationViewCTRL:
     def set_model(self, model):
         self.model = model
 
+
+    def set_menu(self, menu):
+        self.menu = menu
+        
         
     def show(self, grid_size, default_color):
+        self.menu.enable_sim()
+        self.menu.enable_save()
         self.view.init_viewer(grid_size, default_color)
         self.view.tkraise()
+        
 
         
     def step(self):
@@ -74,7 +81,8 @@ class SimulationViewCTRL:
         self.is_looping = False
         self.iteration = 0
         self.view.set_iteration(self.iteration)
-        self.model.reset()
+        if hasattr(self, 'model'):
+            self.model.reset()
         self.view.reset()        
         return
 
@@ -85,6 +93,8 @@ class SimulationViewCTRL:
         self.view.set_iteration(self.iteration)
         self.view.init_viewer(self.model.world_size, self.model.default_color)
         self.view.viewer.load_from_array(array)
+        self.menu.enable_sim()
+        self.menu.enable_save()
         self.view.tkraise()
         
     
@@ -114,7 +124,8 @@ class SimulationView(ttk.Frame):
         self.viewer.set_color(x,y,color)
 
     def reset(self):
-        self.viewer.reset()
+        if hasattr(self, 'viewer'):
+            self.viewer.reset()
 
     def set_iteration(self, val):
         self.tool_bar.set_iteration(val)
