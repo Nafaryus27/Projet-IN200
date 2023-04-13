@@ -81,7 +81,8 @@ class SimulationViewCTRL:
         self.is_looping = False
         self.iteration = 0
         self.view.set_iteration(self.iteration)
-        self.model.reset()
+        if hasattr(self, 'model'):
+            self.model.reset()
         self.view.reset()        
         return
 
@@ -123,7 +124,8 @@ class SimulationView(ttk.Frame):
         self.viewer.set_color(x,y,color)
 
     def reset(self):
-        self.viewer.reset()
+        if hasattr(self, 'viewer'):
+            self.viewer.reset()
 
     def set_iteration(self, val):
         self.tool_bar.set_iteration(val)
