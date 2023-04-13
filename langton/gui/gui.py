@@ -31,7 +31,7 @@ class LangtonGUI(tk.Tk):
         self.simulation_ctrl = SimulationViewCTRL(main_frame, self)
         self.start_page_ctrl = StartPageCTRL(main_frame, self.app, self.simulation_ctrl)
         
-        self.menu_bar = MenuBarCTRL(self, self.start_page_ctrl, self.simulation_ctrl)
+        self.menu_bar = MenuBarCTRL(self, self.app, self.start_page_ctrl, self.simulation_ctrl)
 
     def set_model(self, model):
         self.model = model
