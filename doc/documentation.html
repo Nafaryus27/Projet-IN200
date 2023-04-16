@@ -1,76 +1,81 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Documentation</title>
-        <meta charset='utf-8'/>
-        <link rel="stylesheet" type="text/css" href="./documentation.html_files/github-markdown.css">
-        <style>
-            .markdown-body {
-                box-sizing: border-box;
-                min-width: 200px;
-                max-width: 980px;
-                margin: 0 auto;
-                padding: 45px;
-            }
-        </style>
-        <script>
-            window.onload = function() {
-                if (document.querySelector("script[type=\"math/tex; mode=display\"]") !== null) {
-                    var mathjax = document.createElement("script");
-                    mathjax.src = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML";
-                    document.head.appendChild(mathjax);
-                }
-                if (document.getElementsByTagName("code").length !== 0) {
-                    var highlight = document.createElement("script");
-                    var highlightcss = document.createElement("link");
-                    highlight.src = "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js";
-                    highlightcss.rel = "stylesheet";
-                    highlightcss.href = "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/github.min.css";
-                    highlight.onload = function() {hljs.initHighlighting();};
-                    document.head.appendChild(highlight);
-                    document.head.appendChild(highlightcss);
-                }
-            }
-        </script>
-    </head>
-    <body>
-        <article class="markdown-body">
-            <h1 id="documentation">Documentation</h1>
-<h2 id="introduction">Introduction</h2>
-<p>Ce programme a pour but d&#39;illustrer le fonctionnement de la Fourmi de Langton.</p>
-<p>Dans sa conception initial, la Fourmi de Langton est un automate cellulaire inventé par Christopher Langton, contenant un jeu de règles simples :</p>
-<ul>
-<li>La fourmi peut se déplacer dans toutes les directions (haut, bas, gauche, droite)</li><li>si la fourmi est sur une case blanche, elle tourne de 90° vers la droite, change la couleur de la case en noir, et avance d&#39;une case</li><li><p>si la fourmi est sur une case noire, elle tourne de 90° vers la gauche, change la couleur de la case en blanc, et avance d&#39;une case</p>
-<p>  On peut étendre ce jeux de règles en utilisant un système où les couleurs sont modifiées de manière cyclique, par exemple :</p>
-<p>  Rouge &rarr; Bleu &rarr; Jaune &rarr; Vert &rarr; Rouge</p>
-</li></ul>
-<p>On indique ensuite pour chaque couleur si la fourmi doit tourner à droite <code>&quot;R&quot;</code> ou à gauche <code>&quot;G&quot;</code>.
-Les règles sont alors décrite simplement par une chaîne de caractères de la forme <code>&quot;LRLRRLLR&quot;</code> et l&#39;on peut générer les couleurs aléatoirement pour chaque caractère de la chaîne.</p>
-<p>La Fourmi de Langton classique est décrite alors par <code>&quot;RL&quot;</code>
-Exemple de règles intéressantes :</p>
-<ul>
-<li><code>&quot;RL&quot;</code> finit par faire une &quot;autoroute&quot; (motif périodique qui se répète à l&#39;infini)</li><li><code>&quot;RLR&quot;</code> croît de manière chaotique</li><li><code>&quot;RRLL&quot;</code> croît de manière symétrique</li><li><code>&quot;LRRRRRLLR&quot;</code> remplit tout l&#39;espace en dessinant un carré</li><li><code>&quot;LLRRRLRLRLLR&quot;</code> finit aussi par faire une &quot;autoroute&quot; mais  le motif est plus compliqué que     celui de la fourmi de base</li><li><code>&quot;RRLLLRLLLRRR&quot;</code> dessine un triangle qui grandit et se déplace </li></ul>
-<p><em>Exemples tirés de wikipédia :</em> <a href="https://en.wikipedia.org/wiki/Langton%27s_ant">https://en.wikipedia.org/wiki/Langton%27s_ant</a></p>
-<h2 id="page-de-d%C3%A9marrage">Page de démarrage</h2>
-<h3 id="param%C3%A8tres">Paramètres :</h3>
-<ul>
-<li><strong>World size</strong> : nombre de cases de la grille carrée</li><li><strong>Base color</strong> : couleur initiale de la grille, c&#39;est aussi la première couleur utilisée pour les règles</li><li><strong>X start position</strong> : position en x de départ de la fourmi</li><li><strong>Y start position</strong> : position en y de départ de la fourmi</li><li><strong>Direction</strong> : orientation initiale de la fourmi. Les valeurs possibles sont <code>Up, Down, Left, Right</code></li><li><strong>Rule</strong> : les règles utilisées par la fourmi, au format <code>RL</code></li></ul>
-<h3 id="boutons">Boutons :</h3>
-<ul>
-<li><strong>Launch</strong> initialise la fourmi avec les paramètres donnés et passe dans la vue de simulation</li><li><strong>Load</strong> permet de charger une fourmi précédemment sauvegardée</li></ul>
-<h2 id="vue-de-simulation">Vue de simulation</h2>
-<ul>
-<li><strong>Next</strong> fait avancer la fourmi d&#39;une itération</li><li><strong>Previous</strong> fait reculer la fourmi d&#39;une itération</li><li><strong>Play</strong> fait avancer la fourmi automatiquement</li><li><strong>Reverse</strong> fait reculer la fourmi automatiquement jusqu&#39;à ce qu&#39;elle revienne à l&#39;itération 0</li><li><strong>Pause</strong> met la simulation en pause</li><li><strong>Reset</strong> réinitialise la simulation</li><li><strong>Speed</strong> permet de régler l&#39;intervalle de temps en millisecondes entre 2 itérations</li></ul>
-<h2 id="barre-de-menu">Barre de menu :</h2>
-<h3 id="file">File :</h3>
-<ul>
-<li><strong>New</strong> permet revenir à l&#39;écran de démarrage</li><li><strong>Save</strong> permet de sauvegarder la fourmi en cours</li><li><strong>Load</strong> permet de charger une fourmi précédemment sauvegardée (fichiers <code>.ant</code>)</li><li><strong>Quit</strong> ferme l&#39;application</li></ul>
-<h3 id="simulation">Simulation</h3>
-<p>Contient les mêmes boutons que dans la vu de simulation</p>
-<h3 id="help">Help</h3>
-<ul>
-<li><strong>Document</strong> affiche cet page</li><li><strong>About</strong> affiche des informations complémentaires sur le logiciel</li></ul>
-
-        </article>
-    </body>
+   <head>
+      <title>Documentation</title>
+      <meta charset='utf-8'/>
+      <link rel="stylesheet" type="text/css" href="./doc/documentation.html_files/github-markdown.css">
+   </head>
+   <body>
+      <div class="markdown-body">
+         <h1 id="documentation">Documentation</h1>
+         <h2 id="introduction">Introduction</h2>
+         <p>Ce programme a pour but d'illustrer le fonctionnement de la Fourmi de Langton.</p>
+         <p>Dans sa conception initial, la Fourmi de Langton est un automate cellulaire inventé par Christopher Langton, contenant un jeu de règles simples :</p>
+         <ul>
+            <li>La fourmi peut se déplacer dans toutes les directions (haut, bas, gauche, droite)</li>
+            <li>si la fourmi est sur une case blanche, elle tourne de 90° vers la droite, change la couleur de la case en noir, et avance d'une case</li>
+            <li>
+               <p>si la fourmi est sur une case noire, elle tourne de 90° vers la gauche, change la couleur de la case en blanc, et avance d'une case</p>
+               <p>  On peut étendre ce jeux de règles en utilisant un système où les couleurs sont modifiées de manière cyclique, par exemple :</p>
+               <p>  Rouge → Bleu → Jaune → Vert → Rouge</p>
+            </li>
+         </ul>
+         <p>On indique ensuite pour chaque couleur si la fourmi doit tourner à droite <code>"R"</code> ou à gauche <code>"G"</code>.
+            Les règles sont alors décrite simplement par une chaîne de caractères de la forme <code>"LRLRRLLR"</code> et l'on peut générer les couleurs aléatoirement pour chaque caractère de la chaîne.
+         </p>
+         <p>La Fourmi de Langton classique est décrite alors par <code>"RL"</code>
+            Exemple de règles intéressantes :
+         </p>
+         <ul>
+            <li><code>"RL"</code> finit par faire une "autoroute" (motif périodique qui se répète à l'infini)</li>
+            <li><code>"RLR"</code> croît de manière chaotique</li>
+            <li><code>"RRLL"</code> croît de manière symétrique</li>
+            <li><code>"LRRRRRLLR"</code> remplit tout l'espace en dessinant un carré</li>
+            <li><code>"LLRRRLRLRLLR"</code> finit aussi par faire une "autoroute" mais  le motif est plus compliqué que     celui de la fourmi de base</li>
+            <li><code>"RRLLLRLLLRRR"</code> dessine un triangle qui grandit et se déplace </li>
+         </ul>
+         <p><em>Exemples tirés de wikipédia :</em> <a href="https://en.wikipedia.org/wiki/Langton%27s_ant">https://en.wikipedia.org/wiki/Langton%27s_ant</a></p>
+         <h2 id="page-de-d%C3%A9marrage">Page de démarrage</h2>
+         <h3 id="param%C3%A8tres">Paramètres :</h3>
+         <ul>
+            <li><strong>World size</strong> : nombre de cases de la grille carrée</li>
+            <li><strong>Base color</strong> : couleur initiale de la grille, c'est aussi la première couleur utilisée pour les règles</li>
+            <li><strong>X start position</strong> : position en x de départ de la fourmi</li>
+            <li><strong>Y start position</strong> : position en y de départ de la fourmi</li>
+            <li><strong>Direction</strong> : orientation initiale de la fourmi. Les valeurs possibles sont <code>Up, Down, Left, Right</code></li>
+            <li><strong>Rule</strong> : les règles utilisées par la fourmi, au format <code>RL</code></li>
+         </ul>
+         <h3 id="boutons">Boutons :</h3>
+         <ul>
+            <li><strong>Launch</strong> initialise la fourmi avec les paramètres donnés et passe dans la vue de simulation</li>
+            <li><strong>Load</strong> permet de charger une fourmi précédemment sauvegardée</li>
+         </ul>
+         <h2 id="vue-de-simulation">Vue de simulation</h2>
+         <ul>
+            <li><strong>Next</strong> fait avancer la fourmi d'une itération</li>
+            <li><strong>Previous</strong> fait reculer la fourmi d'une itération</li>
+            <li><strong>Play</strong> fait avancer la fourmi automatiquement</li>
+            <li><strong>Reverse</strong> fait reculer la fourmi automatiquement jusqu'à ce qu'elle revienne à l'itération 0</li>
+            <li><strong>Pause</strong> met la simulation en pause</li>
+            <li><strong>Reset</strong> réinitialise la simulation</li>
+            <li><strong>Speed</strong> permet de régler l'intervalle de temps en millisecondes entre 2 itérations</li>
+         </ul>
+         <h2 id="barre-de-menu">Barre de menu :</h2>
+         <h3 id="file">File :</h3>
+         <ul>
+            <li><strong>New</strong> permet revenir à l'écran de démarrage</li>
+            <li><strong>Save</strong> permet de sauvegarder la fourmi en cours</li>
+            <li><strong>Load</strong> permet de charger une fourmi précédemment sauvegardée (fichiers <code>.ant</code>)</li>
+            <li><strong>Quit</strong> ferme l'application</li>
+         </ul>
+         <h3 id="simulation">Simulation</h3>
+         <p>Contient les mêmes boutons que dans la vu de simulation</p>
+         <h3 id="help">Help</h3>
+         <ul>
+            <li><strong>Document</strong> affiche cet page</li>
+            <li><strong>About</strong> affiche des informations complémentaires sur le logiciel</li>
+         </ul>
+      </div>
+   </body>
 </html>
+

@@ -2,20 +2,37 @@ import tkinter as tk
 from tkinter import ttk, filedialog
 
 class MenuBarCTRL:
-    def __init__(self, master, ant_ctrl, start_page_ctrl, simulation_ctrl):
+    def __init__(self, master, ant_ctrl, start_page_ctrl=None, simulation_ctrl=None, doc_page_ctrl=None):
         self.view = MenuBar(master, self)
         self.disable_sim()
         self.disable_save()
-        self.simulation = simulation_ctrl
-        self.start_page = start_page_ctrl
         self.ant_ctrl = ant_ctrl
+        self.simulation_ctrl = simulation_ctrl
+        self.start_page_ctrl = start_page_ctrl
+        self.doc_page_ctrl = doc_page_ctrl
+
+        
+    def set_start_page_ctrl(self, start_page_ctrl):
+        self.start_page_ctrl = start_page_ctrl
+
+        
+    def set_simulation_ctrl(self, simulation_ctrl):
+        self.simulation_ctrl = simulation_ctrl
+
+        
+    def set_ant_ctrl(self, ant_ctrl):
+        self.ant_ctrl = ant_ctrl
+
+
+    def set_doc_page_ctrl(self, doc_page_ctrl):
+        self.doc_page_ctrl = doc_page_ctrl
 
         
     def new_sim(self):
-        self.simulation.reset()
+        self.simulation_ctrl.reset()
         self.disable_sim()
         self.disable_save()
-        self.start_page.show()
+        self.start_page_ctrl.show()
         
 
     def load_file(self):
@@ -47,31 +64,31 @@ class MenuBarCTRL:
         self.view.menu_file.entryconfig("Save", state='normal')        
         
     def step(self):
-        self.simulation.step()
+        self.simulation_ctrl.step()
 
         
     def previous(self):
-        self.simulation.previous()
+        self.simulation_ctrl.previous()
 
         
     def play(self):
-        self.simulation.play_forward()
+        self.simulation_ctrl.play_forward()
 
 
     def reverse(self):
-        self.simulation.play_reverse()
+        self.simulation_ctrl.play_reverse()
         
         
     def pause(self):
-        self.simulation.pause()
+        self.simulation_ctrl.pause()
 
         
     def reset(self):
-        self.simulation.reset()
+        self.simulation_ctrl.reset()
 
         
     def documentation(self):
-        pass
+        self.doc_page_ctrl.show()
 
     
     def about(self):
