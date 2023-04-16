@@ -6,10 +6,10 @@ from .menubar import MenuBarCTRL
 from .docpage import DocumentationPageCTRL
 
 class LangtonGUI(tk.Tk):
-    def __init__(self, app):
+    def __init__(self, model_ctrl):
         tk.Tk.__init__(self)
 
-        self.app = app
+        self.model_ctrl = model_ctrl
         self.title("Langton's ant")
         self.geometry('1920x1080')
 
@@ -23,23 +23,23 @@ class LangtonGUI(tk.Tk):
         self.init_widgets()
 
     def init_widgets(self):
+        self.top_frame = None
+        
         main_frame = ttk.Frame(self)
         main_frame.pack(side="top", fill="both", expand=True)
         main_frame.grid_columnconfigure(0, weight=1)
         main_frame.grid_rowconfigure(0, weight=1)
 
-        self.menu_bar = MenuBarCTRL(self, self.app)
-        self.simulation_ctrl = SimulationViewCTRL(main_frame, self)
-        self.start_page_ctrl = StartPageCTRL(main_frame, self.app, self.simulation_ctrl)
-        self.doc_page_ctrl = DocumentationPageCTRL(main_frame, "doc/documentation.html")
+        self.menu_bar = MenuBarCTRL(self, self.model_ctrl)
+        self.simulation_ctrl = SimulationViewCTRL(main_frame, controller=self, root=self)
+        self.start_page_ctrl = StartPageCTRL(main_frame, controller=self, model_ctrl=self.model_ctrl, simulation_ctrl=self.simulation_ctrl)
+        self.doc_page_ctrl = DocumentationPageCTRL(main_frame, controller=self, doc_path="doc/documentation.html")
 
         self.menu_bar.set_start_page_ctrl(self.start_page_ctrl)
         self.menu_bar.set_simulation_ctrl(self.simulation_ctrl)
         self.menu_bar.set_doc_page_ctrl(self.doc_page_ctrl)
 
         self.simulation_ctrl.set_menu(self.menu_bar)
-
-        
         self.start_page_ctrl.show()
         
         
@@ -49,3 +49,5 @@ class LangtonGUI(tk.Tk):
         self.start_page_ctrl.set_model(model)
         
 
+    def set_top_frame(self, frame):
+        self.top_frame = frame

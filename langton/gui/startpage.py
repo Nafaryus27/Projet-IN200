@@ -12,11 +12,12 @@ def random_color():
     return rgb_to_hex(r,g,b)
 
 class StartPageCTRL:
-    def __init__(self, master, ant_ctrl, simulation_ctrl):
+    def __init__(self, master, controller, model_ctrl, simulation_ctrl):
         self.view = StartPage(master, self)
-
+        
+        self.controller = controller
         self.model = None
-        self.ant_ctrl = ant_ctrl
+        self.model_ctrl = model_ctrl
         self.simulation = simulation_ctrl
 
 
@@ -25,6 +26,7 @@ class StartPageCTRL:
         
             
     def show(self):
+        self.controller.set_top_frame(self)
         self.view.tkraise()
 
             
@@ -52,14 +54,14 @@ class StartPageCTRL:
         color = self.view.base_color_entry.get()
         rule = self.get_rule(color)
 
-        self.ant_ctrl.new_ant(x,y,direction,rule,world_size,color)
-        self.simulation.show(world_size, color)
+        self.model_ctrl.new_ant(x,y,direction,rule,world_size,color)
+        self.simulation.launch(world_size, color)
     
         
     def load_file(self):
         file_path = filedialog.askopenfilename(initialdir = "./Saves", title = "Load instance", filetypes = (("Ant File", "*.ant*"), ("all files","*.*")))
         if file_path:
-            self.ant_ctrl.load(file_path)
+            self.model_ctrl.load(file_path)
 
     
     def set_model(self, model):

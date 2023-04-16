@@ -4,8 +4,9 @@ from .viewer import *
 from .utils import ToolBar
 
 class SimulationViewCTRL:
-    def __init__(self, master, root):
+    def __init__(self, master, controller,  root):
         self.root = root
+        self.controller = controller
         self.view = SimulationView(master, self)
 
         self.iteration = 0
@@ -21,13 +22,12 @@ class SimulationViewCTRL:
         self.menu = menu
         
         
-    def show(self, grid_size, default_color):
+    def show(self):
         self.menu.enable_sim()
         self.menu.enable_save()
-        self.view.init_viewer(grid_size, default_color)
+        self.controller.set_top_frame(self)
         self.view.tkraise()
         
-
         
     def step(self):
         x,y,c = self.model.iterate()
@@ -86,6 +86,11 @@ class SimulationViewCTRL:
         self.view.reset()        
         return
 
+
+    def launch(self, grid_size, default_color):
+        self.view.init_viewer(grid_size, default_color)
+        self.show()
+
     
     def load(self, array):
         self.is_looping = False
@@ -93,9 +98,7 @@ class SimulationViewCTRL:
         self.view.set_iteration(self.iteration)
         self.view.init_viewer(self.model.world_size, self.model.default_color)
         self.view.viewer.load_from_array(array)
-        self.menu.enable_sim()
-        self.menu.enable_save()
-        self.view.tkraise()
+        self.show()
         
     
 class SimulationView(ttk.Frame):
