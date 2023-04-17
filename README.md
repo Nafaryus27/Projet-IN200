@@ -32,7 +32,7 @@ cet automate.
 - **linux :**
 pour créer l'environnement :
 `python3 -m venv "env"`
-`source /env/bin/activate`
+`source ./env/bin/activate`
 `pip install -r requirements.txt`
 et pour lancer l'application : 
 `python3 main.py`
