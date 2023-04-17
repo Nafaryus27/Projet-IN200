@@ -67,12 +67,11 @@ class StartPageCTRL:
         x = int(self.view.x_entry.get())
         y = int(self.view.y_entry.get())
         direction = ["Up","Left", "Down", "Right"].index(self.view.direction_entry.get())
-        world_size = int(self.view.world_size_entry.get())
         color = self.view.base_color_entry.get()
         rule = self.get_rule(color)
 
-        self.model_ctrl.new_ant(x,y,direction,rule,world_size,color)
-        self.simulation_view.launch(world_size, color)
+        self.model_ctrl.new_ant(x,y,direction,rule,100,color)
+        self.simulation_view.launch(100, color)
     
         
     def load_file(self):
@@ -107,7 +106,6 @@ class StartPage(ttk.Frame):
         self.cont = ttk.Frame(self)
         self.cont.grid(row=1, column=1)
 
-        self.world_size_entry = LabeledSpinbox(self.cont, "World size", 100)
         self.base_color_entry = LabeledEntry(self.cont, "Base color", "White")
         
         self.x_entry = LabeledSpinbox(self.cont, "X start position", 50)
@@ -118,11 +116,10 @@ class StartPage(ttk.Frame):
         self.launch_button = ttk.Button(self.cont, text="Launch", command=self.controller.launch_callback)
         self.load_button = ttk.Button(self.cont, text="Load", command=self.controller.load_file)
 
-        self.world_size_entry.grid(row=0, column=0, sticky='nes')
-        self.base_color_entry.grid(row=1, column=0, sticky='nes')
-        self.x_entry.grid(row=2,column=0, sticky='nes')
-        self.y_entry.grid(row=3,column=0, sticky='nes')
-        self.direction_entry.grid(row=4,column=0, sticky='nes')
-        self.rule_entry.grid(row=5, column=0, sticky='nes')
-        self.launch_button.grid(row=6, column=0, sticky='news')
-        self.load_button.grid(row=7, column=0, sticky='news')
+        self.base_color_entry.grid(row=0, column=0, sticky='nes')
+        self.x_entry.grid(row=1,column=0, sticky='nes')
+        self.y_entry.grid(row=2,column=0, sticky='nes')
+        self.direction_entry.grid(row=3,column=0, sticky='nes')
+        self.rule_entry.grid(row=4, column=0, sticky='nes')
+        self.launch_button.grid(row=5, column=0, sticky='news')
+        self.load_button.grid(row=6, column=0, sticky='news')
