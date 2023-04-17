@@ -33,7 +33,7 @@ cet automate.
 pour créer l'environnement :
 `python3 -m venv "env"`
 `source ./env/bin/activate`
-`pip install -r requirements.txt`
+`pip3 install -r requirements.txt`
 et pour lancer l'application : 
 `python3 main.py`
 ou plus simplement : 
@@ -44,7 +44,7 @@ ou plus simplement :
 pour créer l'environnement :
  `python3 -m venv "env"`
  `.\venv\Scripts\activate`
- `pip install -r requirements.txt`
+ `pip3 install -r requirements.txt`
  et pour lancer l'application : 
  `python3 main.py`
  
