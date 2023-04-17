@@ -108,8 +108,8 @@ class StartPage(ttk.Frame):
 
         self.base_color_entry = LabeledEntry(self.cont, "Base color", "White")
         
-        self.x_entry = LabeledSpinbox(self.cont, "X start position", 50)
-        self.y_entry = LabeledSpinbox(self.cont, "Y start position", 50)
+        self.x_entry = LabeledSpinbox(self.cont, "X start position", 50, 100)
+        self.y_entry = LabeledSpinbox(self.cont, "Y start position", 50, 100)
         self.direction_entry = LabeledEntry(self.cont, "Direction", "Up")
         
         self.rule_entry = LabeledEntry(self.cont, text="Rule", default_value="RL")
