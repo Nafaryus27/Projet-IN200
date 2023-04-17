@@ -3,6 +3,11 @@ import json
 
 class Langton:
     def __init__(self):
+        """
+        classe permettant de lancer l'application
+        Joue aussi le rôle de controlleur du model (création
+        et sauvegardes / chargement)
+        """
         self.GUI = gui.LangtonGUI(self)
         
     def new_ant(self, x:int, y:int, direction:int, rules:dict, world_size:int, default_color:str):

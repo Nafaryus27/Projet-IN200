@@ -45,6 +45,9 @@ class LabeledSpinbox(ttk.Frame):
         
 class ToolBar(ttk.Frame):
     def __init__(self, master, controller):
+        """
+        barre d'outils affichée dans la vue de simulation
+        """
         ttk.Frame.__init__(self, master)
         self.controller  = controller
 

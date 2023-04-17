@@ -5,6 +5,14 @@ import webbrowser
 
 class DocumentationPageCTRL:
     def __init__(self, master, controller, doc_path:str):
+        """
+        Initialisation du controlleur de la page de documentation
+
+        :param master: widget parent de la page de documentation
+        :param controller: controlleur, racine de l'interface
+        graphique contenant la Frame courante
+        :param str doc_path: chemin vers la documentation
+        """
         self.view = DocumentationPage(master, self, doc_path)
         self.controller = controller
 
@@ -19,12 +27,20 @@ class DocumentationPageCTRL:
         webbrowser.open(url)
 
         
-    def back(self):
+    def back_callback(self):
         self.old_frame.show()
 
 
 class DocumentationPage(ttk.Frame):
     def __init__(self, master, controller, doc_path:str):
+        """
+        Frame permettant d'afficher une documentation au format html.
+
+        :param master: widget parent
+        :param controller: controlleur de la Frame, doit contenir
+        l'implémentation de back_callback
+        :param str doc_path: chemin vers la documentation
+        """
         ttk.Frame.__init__(self, master)
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
@@ -32,7 +48,7 @@ class DocumentationPage(ttk.Frame):
         self.html_viewer = HtmlViewer(self, controller, doc_path)
         self.html_viewer.grid(row=0, column=0, sticky='nesw')
 
-        self.back_button = ttk.Button(self, text="Back", command=controller.back)
+        self.back_button = ttk.Button(self, text="Back", command=controller.back_callback)
         self.back_button.grid(row=1, column=0)
         self.grid(row=0, column=0, sticky='nesw')
         
@@ -40,6 +56,14 @@ class DocumentationPage(ttk.Frame):
         
 class HtmlViewer(tkweb.HtmlFrame):
     def __init__(self, master, controller, html_path:str):
+        """Widget permettant d'afficher un fichier html
+
+        :param master: widget parent
+        :param controller: controlleur du widget, doit contenir
+        l'implémentation de link_clicked_handler
+        :param str html_path: chemin vers le fichier html à afficher
+
+        """
         tkweb.HtmlFrame.__init__(self, master, messages_enabled = False)
         self.controller = controller
         self.on_link_click(self.controller.link_clicked_handler)
@@ -56,6 +80,9 @@ class AboutPopup:
 
 
     def popup(self):
+        """
+        Affiche la popup
+        """
         self.window = tk.Toplevel()
         
         self.window.rowconfigure(0, weight=1)

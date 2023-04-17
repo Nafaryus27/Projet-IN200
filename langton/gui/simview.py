@@ -5,6 +5,16 @@ from .utils import ToolBar
 
 class SimulationViewCTRL:
     def __init__(self, master, controller,  root):
+        """
+        Initialisation du controlleur de la vue de simulation
+        
+        :param master: widget parent de la vue de simulation
+        :param controller: controlleur, racine de l'interface
+        graphique contenant la Frame courante
+        :param root: classe racine de l'application utilisé
+        pour lancer la boucle (voir loop)
+        """
+
         self.root = root
         self.controller = controller
         self.view = SimulationView(master, self)
@@ -49,6 +59,10 @@ class SimulationViewCTRL:
 
     
     def loop(self):
+        """
+        permet d'exécuter en boucle la function contenue dans
+        self.looped_func
+        """
         if self.is_looping and self.looped_func():
             self.root.after(self.speed, self.loop)
         else:
@@ -118,6 +132,9 @@ class SimulationView(ttk.Frame):
 
 
     def init_viewer(self, grid_size:int, default_color):
+        """
+        Création du widget viewer permettant d'afficher la fourmi
+        """
         self.viewer = Viewer(self, grid_size, default_color)
         self.viewer.grid(row=1, column=1, sticky='ns')
 

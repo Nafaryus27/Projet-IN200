@@ -5,20 +5,36 @@ from .utils import LabeledEntry, LabeledSpinbox
 
 
 def rgb_to_hex(r,g,b):
+    """
+    Convertis une couleur rgb en hexadécimal
+    """
     return '#{:02x}{:02x}{:02x}'.format(r, g, b)
 
 def random_color():
+    """
+    génère une couleur aléatoire au format rgb hexadécimal
+    """
     r,g,b, = (random.randint(0,255) for i in range(3))
     return rgb_to_hex(r,g,b)
 
 class StartPageCTRL:
-    def __init__(self, master, controller, model_ctrl, simulation_ctrl):
+    def __init__(self, master, controller, model_ctrl, simulation_view_ctrl):
+        """
+        initialisation du controlleur de la page de démarrage
+        
+        :param master: widget parent de la vue de simulation
+        :param controller: controlleur, racine de l'interface
+        graphique contenant la Frame courante
+        :param model_ctrl: controlleur du model
+        :param simulation_view_ctrl: controlleur de la vue de simulation
+        """
+        
         self.view = StartPage(master, self)
         
         self.controller = controller
         self.model = None
         self.model_ctrl = model_ctrl
-        self.simulation = simulation_ctrl
+        self.simulation_view = simulation_view_ctrl
 
 
     def set_model(self, model):
@@ -55,7 +71,7 @@ class StartPageCTRL:
         rule = self.get_rule(color)
 
         self.model_ctrl.new_ant(x,y,direction,rule,world_size,color)
-        self.simulation.launch(world_size, color)
+        self.simulation_view.launch(world_size, color)
     
         
     def load_file(self):
@@ -84,6 +100,9 @@ class StartPage(ttk.Frame):
 
 
     def init_widgets(self):
+        """
+        Initialisation et placement des widgets de la page de démarrage
+        """
         self.cont = ttk.Frame(self)
         self.cont.grid(row=1, column=1)
 
