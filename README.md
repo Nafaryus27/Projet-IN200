@@ -35,7 +35,7 @@ pour créer l'environnement :
 `source ./env/bin/activate`
 `pip3 install -r requirements.txt`
 et pour lancer l'application : 
-`python3 main.py`
+`./env/python3 main.py`
 ou plus simplement : 
 `./setup.sh`
 `./launch.sh`
@@ -46,6 +46,6 @@ pour créer l'environnement :
  `.\venv\Scripts\activate`
  `pip3 install -r requirements.txt`
  et pour lancer l'application : 
- `python3 main.py`
+ `.\env\python3 main.py`
  
  *note : il est recommandé d'utiliser python3.11, mais cela devrait marcher pour les versions >= 3.9*
