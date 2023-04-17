@@ -4,8 +4,19 @@ from .viewer import *
 from .utils import ToolBar
 
 class SimulationViewCTRL:
-    def __init__(self, master, root):
+    def __init__(self, master, controller,  root):
+        """
+        Initialisation du controlleur de la vue de simulation
+        
+        :param master: widget parent de la vue de simulation
+        :param controller: controlleur, racine de l'interface
+        graphique contenant la Frame courante
+        :param root: classe racine de l'application utilisé
+        pour lancer la boucle (voir loop)
+        """
+
         self.root = root
+        self.controller = controller
         self.view = SimulationView(master, self)
 
         self.iteration = 0
@@ -21,13 +32,12 @@ class SimulationViewCTRL:
         self.menu = menu
         
         
-    def show(self, grid_size, default_color):
+    def show(self):
         self.menu.enable_sim()
         self.menu.enable_save()
-        self.view.init_viewer(grid_size, default_color)
+        self.controller.set_top_frame(self)
         self.view.tkraise()
         
-
         
     def step(self):
         x,y,c = self.model.iterate()
@@ -49,6 +59,10 @@ class SimulationViewCTRL:
 
     
     def loop(self):
+        """
+        permet d'exécuter en boucle la function contenue dans
+        self.looped_func
+        """
         if self.is_looping and self.looped_func():
             self.root.after(self.speed, self.loop)
         else:
@@ -86,6 +100,11 @@ class SimulationViewCTRL:
         self.view.reset()        
         return
 
+
+    def launch(self, grid_size, default_color):
+        self.view.init_viewer(grid_size, default_color)
+        self.show()
+
     
     def load(self, array):
         self.is_looping = False
@@ -93,9 +112,7 @@ class SimulationViewCTRL:
         self.view.set_iteration(self.iteration)
         self.view.init_viewer(self.model.world_size, self.model.default_color)
         self.view.viewer.load_from_array(array)
-        self.menu.enable_sim()
-        self.menu.enable_save()
-        self.view.tkraise()
+        self.show()
         
     
 class SimulationView(ttk.Frame):
@@ -115,6 +132,9 @@ class SimulationView(ttk.Frame):
 
 
     def init_viewer(self, grid_size:int, default_color):
+        """
+        Création du widget viewer permettant d'afficher la fourmi
+        """
         self.viewer = Viewer(self, grid_size, default_color)
         self.viewer.grid(row=1, column=1, sticky='ns')
 
