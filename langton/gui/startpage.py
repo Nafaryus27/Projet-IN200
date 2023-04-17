@@ -44,6 +44,7 @@ class StartPageCTRL:
     def show(self):
         self.controller.set_top_frame(self)
         self.view.tkraise()
+        self.view.focus()
 
             
     def get_rule(self, first_color):
