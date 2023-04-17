@@ -29,7 +29,7 @@ cet automate.
 
 **Attention :** l'utilisation d'un environnement conda est très fortement déconseillée car conda ne supporte pas les fonts truetype et ne permet pas à Tkinter de les utiliser. Pour une meilleure expérience il est donc conseillé d'utiliser virtualenv:
 
-- **linux :**
+## **linux :**
 
 pour créer l'environnement :
 
@@ -46,7 +46,7 @@ ou plus simplement :
     ./setup.sh
     ./launch.sh
 
-- **windows :**
+## **windows :**
 
 pour créer l'environnement :
 
