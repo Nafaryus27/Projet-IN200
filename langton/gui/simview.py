@@ -37,6 +37,7 @@ class SimulationViewCTRL:
         self.menu.enable_save()
         self.controller.set_top_frame(self)
         self.view.tkraise()
+        self.view.focus()
         
         
     def step(self):

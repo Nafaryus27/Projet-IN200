@@ -21,6 +21,7 @@ class DocumentationPageCTRL:
         self.old_frame = self.controller.top_frame
         self.controller.set_top_frame(self)
         self.view.tkraise()
+        self.view.focus()
 
         
     def link_clicked_handler(self, url):
