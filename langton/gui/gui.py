@@ -46,21 +46,21 @@ class LangtonGUI(tk.Tk):
         main_frame.grid_rowconfigure(0, weight=1)
 
         self.menu_bar = MenuBarCTRL(self, self.model_ctrl, about_msg_path=self.about_msg_path)
-        self.simulation_ctrl = SimulationViewCTRL(main_frame, controller=self, root=self)
-        self.start_page_ctrl = StartPageCTRL(main_frame, controller=self, model_ctrl=self.model_ctrl, simulation_ctrl=self.simulation_ctrl)
+        self.simulation_view_ctrl = SimulationViewCTRL(main_frame, controller=self, root=self)
+        self.start_page_ctrl = StartPageCTRL(main_frame, controller=self, model_ctrl=self.model_ctrl, simulation_view_ctrl=self.simulation_view_ctrl)
         self.doc_page_ctrl = DocumentationPageCTRL(main_frame, controller=self, doc_path=self.doc_path)
 
         self.menu_bar.set_start_page_ctrl(self.start_page_ctrl)
-        self.menu_bar.set_simulation_ctrl(self.simulation_ctrl)
+        self.menu_bar.set_simulation_view_ctrl(self.simulation_view_ctrl)
         self.menu_bar.set_doc_page_ctrl(self.doc_page_ctrl)
 
-        self.simulation_ctrl.set_menu(self.menu_bar)
+        self.simulation_view_ctrl.set_menu(self.menu_bar)
         self.start_page_ctrl.show()
         
         
     def set_model(self, model):
         self.model = model
-        self.simulation_ctrl.set_model(model)
+        self.simulation_view_ctrl.set_model(model)
         self.start_page_ctrl.set_model(model)
         
 

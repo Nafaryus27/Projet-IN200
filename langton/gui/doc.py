@@ -93,7 +93,6 @@ class AboutPopup:
 
         self.ok_button = ttk.Button(self.window, text="Ok", command=self.window.destroy)
         self.ok_button.grid(row=1, column=0)
-        self.window.grid(row=0, column=0, sticky='nesw')
 
         
     def link_clicked_handler(self, url):

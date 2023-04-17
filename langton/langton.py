@@ -43,7 +43,7 @@ class Langton:
                 self.Ant = ant.Ant().load_from_data(data)
                 f.close()
             self.GUI.set_model(self.Ant)
-            self.GUI.simulation_ctrl.load(self.Ant.world)
+            self.GUI.simulation_view_ctrl.load(self.Ant.world)
             
         
     def run(self):
