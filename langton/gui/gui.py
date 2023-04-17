@@ -3,7 +3,7 @@ from tkinter import ttk
 from .startpage import StartPageCTRL
 from .simview import SimulationViewCTRL
 from .menubar import MenuBarCTRL
-from .docpage import DocumentationPageCTRL
+from .doc import DocumentationPageCTRL
 
 class LangtonGUI(tk.Tk):
     def __init__(self, model_ctrl):
@@ -30,7 +30,7 @@ class LangtonGUI(tk.Tk):
         main_frame.grid_columnconfigure(0, weight=1)
         main_frame.grid_rowconfigure(0, weight=1)
 
-        self.menu_bar = MenuBarCTRL(self, self.model_ctrl)
+        self.menu_bar = MenuBarCTRL(self, self.model_ctrl, about_msg_path="doc/about.html")
         self.simulation_ctrl = SimulationViewCTRL(main_frame, controller=self, root=self)
         self.start_page_ctrl = StartPageCTRL(main_frame, controller=self, model_ctrl=self.model_ctrl, simulation_ctrl=self.simulation_ctrl)
         self.doc_page_ctrl = DocumentationPageCTRL(main_frame, controller=self, doc_path="doc/documentation.html")

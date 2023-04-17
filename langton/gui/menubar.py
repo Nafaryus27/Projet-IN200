@@ -1,16 +1,17 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
+from .doc import AboutPopup
 
 class MenuBarCTRL:
-    def __init__(self, master, ant_ctrl, start_page_ctrl=None, simulation_ctrl=None, doc_page_ctrl=None):
+    def __init__(self, master, model_ctrl, about_msg_path:str, start_page_ctrl=None, simulation_ctrl=None, doc_page_ctrl=None):
         self.view = MenuBar(master, self)
         self.disable_sim()
         self.disable_save()
-        self.ant_ctrl = ant_ctrl
+        self.model_ctrl = model_ctrl
         self.simulation_ctrl = simulation_ctrl
         self.start_page_ctrl = start_page_ctrl
         self.doc_page_ctrl = doc_page_ctrl
-
+        self.about_popup = AboutPopup(about_msg_path)
         
     def set_start_page_ctrl(self, start_page_ctrl):
         self.start_page_ctrl = start_page_ctrl
@@ -20,8 +21,8 @@ class MenuBarCTRL:
         self.simulation_ctrl = simulation_ctrl
 
         
-    def set_ant_ctrl(self, ant_ctrl):
-        self.ant_ctrl = ant_ctrl
+    def set_model_ctrl(self, model_ctrl):
+        self.model_ctrl = model_ctrl
 
 
     def set_doc_page_ctrl(self, doc_page_ctrl):
@@ -38,7 +39,7 @@ class MenuBarCTRL:
     def load_file(self):
         file_path = filedialog.askopenfilename(initialdir = "./Saves", title = "Load instance", filetypes = (("Ant File", "*.ant*"), ("all files","*.*")))
         if file_path:
-            self.ant_ctrl.load(file_path)
+            self.model_ctrl.load(file_path)
 
         
     def save_file(self):
@@ -47,7 +48,7 @@ class MenuBarCTRL:
         if file_path:
             if file_path[-4::] != ".ant":
                 file_path += ".ant"
-            self.ant_ctrl.save(file_path)
+            self.model_ctrl.save(file_path)
 
 
     def disable_sim(self):
@@ -92,7 +93,7 @@ class MenuBarCTRL:
 
     
     def about(self):
-        pass
+        self.about_popup.popup()
 
     
 class MenuBar(tk.Menu):
