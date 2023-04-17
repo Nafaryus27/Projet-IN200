@@ -14,7 +14,7 @@ class Viewer(tk.Canvas):
         tk.Canvas.__init__(self, master, width=size + 1, height=size + 1)
         self.default_color = default_color
         self.grid_size = grid_size
-        self.cell_size = size // grid_size
+        self.cell_size = int(size / grid_size)
         self.grid_init()
 
         
